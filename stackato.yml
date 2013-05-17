@@ -1,0 +1,13 @@
+name: glupy
+framework:
+  type: python
+processes:
+  web: PYTHONPATH=src python -m glupy.main --listen_port=3000
+services:
+  glu-db: mongodb
+  glu-mq: rabbitmq
+env:
+  TWITTER_CONSUMER_KEY:
+    required: y
+  TWITTER_CONSUMER_SECRET:
+    required: y

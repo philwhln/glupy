@@ -1,0 +1,64 @@
+<html>
+<head>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<h1>Glupy</h1>
+
+{% if not user_id %}
+<a href="/login">Login</a>
+{% else %}
+
+<p>Hello {{ user_id }}. <a href="/logout">Logout</a>
+
+<div class="user-header clearfix">
+    <div class="user-stats">
+       <h2>Stats</h2>
+       Total: <span data-field="total">--</span>
+    </div>
+</div>
+
+<div class="user-list"></div>
+
+</body>
+
+<script type="text/template" data-name="user-list">
+<div class="user-list">
+  <% if (total == 0) { %>
+    No matching users.
+  <% } else { %>
+    <table>
+      <tr>
+        <th data-field="twitter.profile_image_url">image</th>
+        <th data-field="twitter.screen_name">screen_name</th>
+        <th data-field="twitter.name">name</th>
+        <th data-field="twitter.location">location</th>
+        <th data-field="twitter.followers_count">followers</th>
+        <th data-field="twitter.friends_count">following</th>
+        <th data-field="twitter.description">description</th>
+      </tr>
+      <% _.each(list, function(user) { %>
+        <tr data-twitter-screen-name="<%= user.twitter.screen_name %>" data-twitter-name="<%= user.twitter.name %>">
+          <td data-field="twitter.profile_image_url"><a href="http://twitter.com/intent/user?screen_name=<%= user.twitter.screen_name %>" target="_twitter"><img src="<%= user.twitter.profile_image_url %>"></a></td>
+          <td data-field="twitter.screen_name"><a href="http://twitter.com/intent/user?screen_name=<%= user.twitter.screen_name %>" target="_twitter"><%= user.twitter.screen_name %></a></td>
+          <td data-field="twitter.name"><a href="http://twitter.com/intent/user?screen_name=<%= user.twitter.screen_name %>" target="_twitter"><%= user.twitter.name %></a></td>
+          <td data-field="twitter.location"><%= user.twitter.location %></td>
+          <td data-field="twitter.followers_count"><%= user.twitter.followers_count %></td>
+          <td data-field="twitter.friends_count"><%= user.twitter.friends_count %></td>
+          <td data-field="twitter.description"><%= user.twitter.description %><br><a href="<%= user.twitter.url %>"><%= user.twitter.url %></a></td>
+        </tr>
+      <% }) %>
+    </table>
+  <% } %>
+</div>
+</script>
+
+<script src="/static/js/libs/jquery/jquery.min.js"></script>
+<script src="/static/js/libs/jquery.json-2.3.min.js"></script>
+<script src="/static/js/libs/underscore/underscore.min.js"></script>
+<script src="/static/js/templates.js"></script>
+<script src="/static/js/main.js"></script>
+
+{% end %}
+
+</html>

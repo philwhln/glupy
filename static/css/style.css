@@ -1,0 +1,70 @@
+
+body, td {
+  font-family: helvetica;
+}
+
+/* For modern browsers */
+.container:before,
+.container:after {
+    content:"";
+    display:table;
+}
+.container:after {
+    clear:both;
+}
+/* For IE 6/7 (trigger hasLayout) */
+.container {
+    zoom:1;
+}
+
+th {
+  vertical-align: top;
+}
+
+td {
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+
+td[data-field="twitter.profile_image_url"] img {
+  width: 48px;
+  height: 48px;
+}
+
+td[data-field="twitter.screen_name"] {
+  font-size: 70%
+}
+
+td[data-field="twitter.location"] {
+  font-size: 70%
+}
+
+td[data-field="twitter.description"] {
+  text-align: left;
+  font-size: 90%
+}
+
+td[data-field="twitter.followers_count"], td[data-field="twitter.friends_count"] {
+  font-size: 80%
+}
+
+td.important {
+  font-weight: bold;
+}
+
+td.unimportant {
+  color: #bbb;
+}
+
+.user-header {
+  overflow: auto;
+  width: 100%;
+  padding: 20px;
+}
+
+.user-add, .user-search, .user-stats {
+  float: left;
+  padding-right: 20px;
+  min-width: 200px;
+}
+
