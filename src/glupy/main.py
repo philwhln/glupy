@@ -11,6 +11,7 @@ from glupy.handlers.main import MainHandler
 from glupy.handlers.twitter_oauth import TwitterHandler, LogoutHandler
 from glupy.handlers.api.user import ApiUserHandler
 from glupy.handlers.api.user_list import ApiUserListHandler
+import glupy.mq
 import pymongo
 import simplejson as json
 from simplejson import JSONDecodeError
@@ -20,17 +21,21 @@ mongodb_options = {
     "port": 27017,
     "db": "glupy"
 }
+rabbitmq_options = {
+    "host": "127.0.0.1"
+}
+
 stackato_services_json = os.environ.get("STACKATO_SERVICES", None)
 if stackato_services_json:
     try:
         stackato_services = json.loads(stackato_services_json)
         mongodb_options = stackato_services["glu-db"]
+        rabbitmq_options = stackato_services["glu-mq"]
+        logging.warn("rabbitmq_options: " + str(rabbitmq_options))
     except JSONDecodeError as e:
         logging.warn("Could not decode STACKATO_SERVICES env. Falling back to default mongodb connection parameters.")
 
 define("listen_port", default=None, help="run on the given port", type=int)
-define("listen_addr", default=None, help="bind to given host", type=str)
-define("debug", default=False, help="debug mode", type=bool)
 
 root_dir = os.path.join(os.path.dirname(__file__), "..", "..")
 application = tornado.web.Application(
@@ -47,23 +52,35 @@ application = tornado.web.Application(
 )
 
 if __name__ == "__main__":
+    tornado.autoreload.start()
     tornado.options.parse_command_line()
+
+    io_loop = tornado.ioloop.IOLoop.instance()
+
     application.listen(
         options.listen_port or application.settings["listen_port"],
     )
+
     application.settings["twitter_consumer_key"] = \
        os.environ.get("TWITTER_CONSUMER_KEY")
     application.settings["twitter_consumer_secret"] = \
         os.environ.get("TWITTER_CONSUMER_SECRET")
+
     application.settings["cookie_secret"] = "dsisj2ir9fjsifsinmfn232342fdsfqqa"
     application.settings["login_url"] = "/login"
+
     application.mongo = pymongo.MongoClient(
         host=mongodb_options["host"],
         port=mongodb_options["port"]
     )[mongodb_options["db"]]
     if mongodb_options.has_key("username"):
         application.mongo.authenticate(mongodb_options["username"], mongodb_options["password"])
-    tornado.autoreload.start()
+
+    logging.info("Connecting to RabbitMQ...")
+    mq = glupy.mq.Sender(rabbitmq_options, io_loop=io_loop)
+    io_loop.add_callback(mq.connect)
+    application.mq = mq
+
     print "Starting server"
-    tornado.ioloop.IOLoop.instance().start()
+    io_loop.start()
 
