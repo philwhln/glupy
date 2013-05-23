@@ -45,3 +45,11 @@ td[data-field="twitter.profile_image_url"] img {
   padding-right: 20px;
 }
 
+.STOPPED {
+  color: red;
+}
+
+.STARTED {
+  color: green;
+}
+
