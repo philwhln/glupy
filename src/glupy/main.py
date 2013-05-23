@@ -11,6 +11,7 @@ from glupy.handlers.main import MainHandler
 from glupy.handlers.twitter_oauth import TwitterHandler, LogoutHandler
 from glupy.handlers.api.user import ApiUserHandler
 from glupy.handlers.api.user_list import ApiUserListHandler
+from glupy.stackato.apps import AppsPoller
 import glupy.mq
 import pymongo
 import simplejson as json
@@ -79,7 +80,9 @@ if __name__ == "__main__":
     logging.info("Connecting to RabbitMQ...")
     mq = glupy.mq.Sender(rabbitmq_options, io_loop=io_loop)
     io_loop.add_callback(mq.connect)
+    application.io_loop = io_loop
     application.mq = mq
+    application.apps_poller = AppsPoller(application)
 
     print "Starting server"
     io_loop.start()
