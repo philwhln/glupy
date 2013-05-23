@@ -23,7 +23,7 @@ $(function() {
         }).done(function(data) {
             var $user_list = $(Templates.templates["user-list"](data));
             $(".user-list").replaceWith($user_list);
-            setTimeout(2000, display_users);
+            setTimeout(display_users, 2000);
         });
     };
 
@@ -36,7 +36,7 @@ $(function() {
         }).done(function(data) {
             var $app_list = $(Templates.templates["app-list"]({ clusters: data }));
             $(".app-list").replaceWith($app_list);
-            setTimeout(1000, display_apps);
+            setTimeout(display_apps, 1000);
         });
     };
 
