@@ -27,19 +27,18 @@ class AppsPoller():
             self.get_apps(cluster)
 
     def get_apps(self, cluster):
-        for cluster in self.clusters:
-            apps_api = "http://" + cluster["target"] + "/apps"
-            headers = {
-                "Authorization": cluster["auth_token"]
-            }
-            logging.warn("Fetching apps from " + str(apps_api))
-            self.http_client.fetch(
-                HTTPRequest(apps_api, headers=headers),
-                functools.partial(
-                    self.got_apps,
-                    cluster
-                )
+        apps_api = "http://" + cluster["target"] + "/apps"
+        headers = {
+            "Authorization": cluster["auth_token"]
+        }
+        logging.warn("Fetching apps from " + str(apps_api))
+        self.http_client.fetch(
+            HTTPRequest(apps_api, headers=headers),
+            functools.partial(
+                self.got_apps,
+                cluster
             )
+        )
 
     def got_apps(self, cluster, response):
         if response and response.code == 200:

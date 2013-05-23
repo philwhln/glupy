@@ -1,4 +1,4 @@
-name: glupy
+name: glue
 framework:
   type: python
 processes:
