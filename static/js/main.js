@@ -23,8 +23,20 @@ $(function() {
         }).done(function(data) {
             var $user_list = $(Templates.templates["user-list"](data));
             $(".user-list").replaceWith($user_list);
-            $(".user-stats span[data-field=total]").html(data.total);
-            display_twitter_follow_buttons();
+            setTimeout(2000, display_users);
+        });
+    };
+
+    function display_apps() {
+        $.ajax({
+            type: "GET",
+            dataType: "json",
+            contentType: "application/json",
+            url: "/api/apps"
+        }).done(function(data) {
+            var $app_list = $(Templates.templates["app-list"]({ clusters: data }));
+            $(".app-list").replaceWith($app_list);
+            setTimeout(1000, display_apps);
         });
     };
 
@@ -44,6 +56,7 @@ $(function() {
     
     // Display users on first load
     display_users();
+    display_apps();
 
 });
 

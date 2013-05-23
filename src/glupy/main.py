@@ -11,6 +11,7 @@ from glupy.handlers.main import MainHandler
 from glupy.handlers.twitter_oauth import TwitterHandler, LogoutHandler
 from glupy.handlers.api.user import ApiUserHandler
 from glupy.handlers.api.user_list import ApiUserListHandler
+from glupy.handlers.api.apps import ApiAppsHandler
 from glupy.stackato.apps import AppsPoller
 import glupy.mq
 import pymongo
@@ -46,7 +47,8 @@ application = tornado.web.Application(
         (r"^/logout$", LogoutHandler),
         (r"^/oauth/twitter", TwitterHandler),
         (r"^/api/user(?:/(?P<twitter_screen_name>[^/\s]+))?$", ApiUserHandler),
-        (r"^/api/users$", ApiUserListHandler)
+        (r"^/api/users$", ApiUserListHandler),
+        (r"^/api/apps$", ApiAppsHandler)
     ],
     template_path=os.path.join(root_dir, "templates"),
     static_path=os.path.join(root_dir, "static")

@@ -17,13 +17,21 @@ body, td {
     zoom:1;
 }
 
+.welcome {
+  font-size: 13px;
+}
+
+table {
+  margin: 30px;
+}
+
 th {
   vertical-align: top;
 }
 
 td {
   text-align: center;
-  border-bottom: 1px solid #ddd;
+  padding: 10px;
 }
 
 td[data-field="twitter.profile_image_url"] img {
@@ -31,40 +39,9 @@ td[data-field="twitter.profile_image_url"] img {
   height: 48px;
 }
 
-td[data-field="twitter.screen_name"] {
-  font-size: 70%
-}
-
-td[data-field="twitter.location"] {
-  font-size: 70%
-}
-
-td[data-field="twitter.description"] {
-  text-align: left;
-  font-size: 90%
-}
-
-td[data-field="twitter.followers_count"], td[data-field="twitter.friends_count"] {
-  font-size: 80%
-}
-
-td.important {
-  font-weight: bold;
-}
-
-td.unimportant {
-  color: #bbb;
-}
-
-.user-header {
-  overflow: auto;
-  width: 100%;
-  padding: 20px;
-}
-
-.user-add, .user-search, .user-stats {
+.user-list, .app-list {
   float: left;
+  width: 40%;
   padding-right: 20px;
-  min-width: 200px;
 }
 
