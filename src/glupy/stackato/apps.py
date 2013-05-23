@@ -1,4 +1,6 @@
 
+import os.path
+import yaml
 import logging
 import functools
 from datetime import timedelta
@@ -13,12 +15,8 @@ class AppsPoller():
 
         self.poll_delay = timedelta(seconds=3)
 
-        self.clusters = [
-            {
-                "target": "api.stackato-ay6x.local",
-                "auth_token": "MTM2OTkzMTgwODo0ZDAyNjkwZTdmZTc0ZTI2MDU4YjNlOWE4NjYyZmMzNTg1NzkyZmI2OnBoaWx3QGFjdGl2ZXN0YXRlLmNvbQ=="
-            }
-        ]
+        cluster_yml_path = os.path.join(os.path.dirname(__file__), '..', '..', '..', 'clusters.yml')
+        self.clusters = yaml.load(file(cluster_yml_path, 'r'))
 
         self.application = application
         self.http_client = AsyncHTTPClient()
