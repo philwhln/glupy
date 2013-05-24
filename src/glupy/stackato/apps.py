@@ -23,7 +23,9 @@ class AppsPoller():
 
         self.apps = {}
         for cluster in self.clusters:
-            self.apps[cluster["target"]] = []
+            self.apps[cluster["target"]] = {
+                "name": cluster["name"]
+            }
             self.get_apps(cluster)
 
     def get_apps(self, cluster):
@@ -45,7 +47,10 @@ class AppsPoller():
             logging.warn("response from " + cluster["target"])
             try:
                 apps = json.loads(response.body)
-                self.apps[cluster["target"]] = apps
+                self.apps[cluster["target"]] = {
+                    "name": cluster["name"],
+                    "apps": apps
+                }
             except JSONDecodeError as e:
                 logging.error(
                     "Failed to decode JSON response from " +

@@ -23,7 +23,7 @@
 <div class="user-list">
   <h2>Who's Here?</h2>
   <% if (total == 0) { %>
-    Nobodies here.
+    Nobody is here.
   <% } else { %>
     <table>
       <% _.each(list, function(user) { %>
@@ -41,13 +41,13 @@
 <script type="text/template" data-name="app-list">
 <div class="app-list">
   <h2>Cluster Apps</h2>
-  <% _.each(clusters, function(apps, endpoint) { %>
-    <h3><%= endpoint %></h3>
-    <% if (apps.length == 0) { %>
+  <% _.each(clusters, function(cluster, endpoint) { %>
+    <h3><%= cluster.name %> &nbsp;<small><%= endpoint %></small></h3>
+    <% if ( ! cluster.apps || cluster.apps.length == 0) { %>
       No apps deployed.
     <% } else { %>
       <table>
-        <% _.each(apps, function(app) { %>
+        <% _.each(cluster.apps, function(app) { %>
           <tr>
             <td>
               <a href="http://<%= app.uris[0] %>" target="_app"><%= app.name %></a><br>
