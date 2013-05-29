@@ -1,11 +1,11 @@
-name: glue
+name: poly
 framework:
   type: python
 processes:
   web: PYTHONPATH=src python -m glupy.main --listen_port=3000
 services:
-  glu-db: mongodb
-  glu-mq: rabbitmq
+  poly-db: mongodb
+  poly-mq: rabbitmq
 env:
   TWITTER_CONSUMER_KEY:
     required: y

@@ -31,8 +31,8 @@ stackato_services_json = os.environ.get("STACKATO_SERVICES", None)
 if stackato_services_json:
     try:
         stackato_services = json.loads(stackato_services_json)
-        mongodb_options = stackato_services["glu-db"]
-        rabbitmq_options = stackato_services["glu-mq"]
+        mongodb_options = stackato_services["poly-db"]
+        rabbitmq_options = stackato_services["poly-mq"]
         logging.warn("rabbitmq_options: " + str(rabbitmq_options))
     except JSONDecodeError as e:
         logging.warn("Could not decode STACKATO_SERVICES env. Falling back to default mongodb connection parameters.")
