@@ -3,7 +3,7 @@
   <link rel="stylesheet" href="/static/css/style.css">
 </head>
 <body>
-<h1>glue.stacka.to</h1>
+<h1>poly.stacka.to</h1>
 
 {% if not user_id %}
 <a href="/login">Login</a>
@@ -42,7 +42,7 @@
 <div class="app-list">
   <h2>Cluster Apps</h2>
   <% _.each(clusters, function(cluster, endpoint) { %>
-    <h3><%= cluster.name %> &nbsp;<small><%= endpoint %></small></h3>
+    <h3><%= cluster.name %> &nbsp;<small><a href="http://<%= endpoint %>"><%= endpoint %></a></small></h3>
     <% if ( ! cluster.apps || cluster.apps.length == 0) { %>
       No apps deployed.
     <% } else { %>
