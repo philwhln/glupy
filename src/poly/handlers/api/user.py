@@ -1,5 +1,5 @@
 
-from glupy.handlers.auth import AuthHandler
+from poly.handlers.auth import AuthHandler
 import simplejson as json
 from simplejson import JSONDecodeError
 import tornado.web

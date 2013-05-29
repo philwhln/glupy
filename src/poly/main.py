@@ -7,13 +7,13 @@ import tornado.web
 import tornado.autoreload
 import tornado.options
 from tornado.options import options, define
-from glupy.handlers.main import MainHandler
-from glupy.handlers.twitter_oauth import TwitterHandler, LogoutHandler
-from glupy.handlers.api.user import ApiUserHandler
-from glupy.handlers.api.user_list import ApiUserListHandler
-from glupy.handlers.api.apps import ApiAppsHandler
-from glupy.stackato.apps import AppsPoller
-import glupy.mq
+from poly.handlers.main import MainHandler
+from poly.handlers.twitter_oauth import TwitterHandler, LogoutHandler
+from poly.handlers.api.user import ApiUserHandler
+from poly.handlers.api.user_list import ApiUserListHandler
+from poly.handlers.api.apps import ApiAppsHandler
+from poly.stackato.apps import AppsPoller
+import poly.mq
 import pymongo
 import simplejson as json
 from simplejson import JSONDecodeError
@@ -21,7 +21,7 @@ from simplejson import JSONDecodeError
 mongodb_options = {
     "host": "localhost",
     "port": 27017,
-    "db": "glupy"
+    "db": "poly"
 }
 rabbitmq_options = {
     "host": "127.0.0.1"
@@ -80,7 +80,7 @@ if __name__ == "__main__":
         application.mongo.authenticate(mongodb_options["username"], mongodb_options["password"])
 
     logging.info("Connecting to RabbitMQ...")
-    mq = glupy.mq.Sender(rabbitmq_options, io_loop=io_loop)
+    mq = poly.mq.Sender(rabbitmq_options, io_loop=io_loop)
     io_loop.add_callback(mq.connect)
     application.io_loop = io_loop
     application.mq = mq

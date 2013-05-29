@@ -1,6 +1,6 @@
 
 import re
-from glupy.handlers.auth import AuthHandler
+from poly.handlers.auth import AuthHandler
 import simplejson as json
 import tornado.web
 import logging

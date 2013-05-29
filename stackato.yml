@@ -2,7 +2,7 @@ name: poly
 framework:
   type: python
 processes:
-  web: PYTHONPATH=src python -m glupy.main --listen_port=3000
+  web: PYTHONPATH=src python -m poly.main --listen_port=3000
 services:
   poly-db: mongodb
   poly-mq: rabbitmq

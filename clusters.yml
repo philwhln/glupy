@@ -1,0 +1,17 @@
+---
+-
+    name: Savvis (VMware vCloud Director)
+    target: api.205.218.41.42.xip.io
+    auth_token: ""
+-
+    name: ActiveState
+    target: api.stacka.to
+    auth_token: ""
+-
+    name: CloudScaling
+    target: api.208.75.128.209.xip.io
+    auth_token: ""
+-
+    name: HP Cloud
+    target: api.stackato.ddns.us
+    auth_token: ""

@@ -11,7 +11,7 @@ class Sender(object):
     def __init__(self, settings, io_loop):
         self.io_loop = io_loop
         self.channel = None
-        self.exchange = "glu"
+        self.exchange = "poly"
 
         credentials = None
         if settings.get("username", None):
